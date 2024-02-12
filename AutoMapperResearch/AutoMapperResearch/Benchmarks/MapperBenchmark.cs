@@ -20,7 +20,7 @@ namespace AutoMapperResearch.Benchmarks
         private readonly IList<Person> personsToMap = [];
 
         private Mapper personAutoMapper;
-        private PersonMapperley _personMapperley;
+        private PersonMapperley personMapperley;
 
         [GlobalSetup]
         public void Setup()
@@ -57,18 +57,17 @@ namespace AutoMapperResearch.Benchmarks
             var autoMapperConfig = PersonAutoMapper.CreateAutoMapper();
             autoMapperConfig.AssertConfigurationIsValid();
             personAutoMapper = new Mapper(autoMapperConfig);
-            _personMapperley = new PersonMapperley();
+            personMapperley = new PersonMapperley();
         }
 
 
         [Benchmark]
         public void Benchmark_Mapperley()
         {
-            var personMapper = new PersonMapperley();
 
             foreach (var person in personsToMap)
             {
-                var mapResult = personMapper.PersonToPersonDto(person);
+                var mapResult = personMapperley.PersonToPersonDto(person);
                 Console.WriteLine($"{personsToMap.IndexOf(person)} mapped using mapperley!");
             }
         }
